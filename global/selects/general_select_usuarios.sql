@@ -1,0 +1,12 @@
+SELECT 
+	UPPER(CONCAT_WS(" ",u.`name`,u.surname)) AS 'NOMBRE DEL USUARIO',
+	LOWER(u.email) AS 'CORREO DEL USUARIO',
+	IF(u.is_activated = 1, 'ACTIVO', 'INACTIVO') AS 'ESTADO DEL USUARIO',
+	CASE u.wg_type
+		WHEN 'system' THEN 'ADMINISTRADOR'
+		WHEN 'agent' THEN 'ASESOR'
+		WHEN 'customerAdmin' THEN 'CLIENTE'
+		ELSE 'CLIENTE'
+	END AS 'TIPO DE USUARIO'
+FROM users AS u
+ORDER BY u.`name`
