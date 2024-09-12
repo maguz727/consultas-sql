@@ -9,16 +9,22 @@ SELECT
         WHEN -1 THEN 'RETIRADO'
         ELSE ''
     END AS 'ESTADO DEL CLIENTE',
-    e.fullName AS 'NOMBRE DEL EMPLEADO',
+    TRIM(REGEXP_REPLACE(e.fullName, '[ ]+', ' ')) AS 'NOMBRE DEL EMPLEADO',
     CASE ce.isActive
         WHEN 1 THEN 'ACTIVO'
         WHEN 0 THEN 'INACTIVO'
         ELSE ''
-    END AS 'ESTADO DEL EMPLEADO'
+    END AS 'ESTADO DEL EMPLEADO',
+    CASE e.gender
+        WHEN 'M' THEN 'MASCULINO'
+        WHEN 'F' THEN 'FEMENINO'
+        WHEN 'P' THEN 'PENDIENTE'  
+        ELSE  ''
+    END AS 'GÉNERO'
 FROM wg_customers AS c
     JOIN wg_customer_employee AS ce 
         ON c.id = ce.customer_id
-    lEFT JOIN wg_employee AS e 
+    JOIN wg_employee AS e 
         ON ce.employee_id = e.id
     LEFT JOIN (
         SELECT sp.item, sp.`value`
