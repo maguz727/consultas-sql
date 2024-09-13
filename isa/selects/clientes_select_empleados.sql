@@ -15,6 +15,11 @@ SELECT
         WHEN 0 THEN 'INACTIVO'
         ELSE ''
     END AS 'ESTADO DEL EMPLEADO',
+    CASE ce.`isAuthorized`
+        WHEN 1 THEN 'AUTORIZADO' 
+        WHEN 0 THEN 'DESAUTORIZADO'
+        ELSE '' 
+    END AS 'AUTORIZACIÓN DEL EMPLEADO',
     CASE e.gender
         WHEN 'M' THEN 'MASCULINO'
         WHEN 'F' THEN 'FEMENINO'
